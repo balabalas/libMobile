@@ -10,20 +10,27 @@
     </head>
     <body>
         <div id="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+            <header id="pageHeader">
+                <span>北信图书查询</span>
+            </header>
         
+            <section id="pageContent">
+                <div id="search">
+                    <input type="text" name="queryNumber" id="queryNumber"/>
+                    <select name="match" id="queryMatch">
+                        <option value="qx">前向匹配</option>
+                        <option value="mh">模糊匹配</option>
+                        <option value="jq">精确匹配</option>
+                    </select>
+                </div>
+            </section>
         
-        
-        
-        
-        
-        
-        
-        
+            <footer id="pageFooter">
+                <div id="settings">
+                    <i id="settings-icon" class="icon-cog"></i>
+                    <span id="settings-text">设置</span>
+                </div>
+            </footer>
         
         </div>
         <script type="text/javascript" src="js/cordova-2.7.0.js"></script>

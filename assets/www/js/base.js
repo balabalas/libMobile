@@ -7,7 +7,7 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     onDeviceReady: function() {
-        app.receivedEvent('app');
+        //app.receivedEvent('app');
         navigator.splashscreen.hide();
     },
     receivedEvent: function(id) {
