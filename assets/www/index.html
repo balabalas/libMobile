@@ -15,13 +15,30 @@
             </header>
         
             <section id="pageContent">
-                <div id="search">
-                    <input type="text" name="queryNumber" id="queryNumber"/>
-                    <select name="match" id="queryMatch">
-                        <option value="qx">前向匹配</option>
-                        <option value="mh">模糊匹配</option>
-                        <option value="jq">精确匹配</option>
-                    </select>
+                <div id="queries">
+                    <div class="queryBox clearfix" id="searchBox">
+                        <div class="box box_left">
+                            <span class="query_text">检索词</span>
+                        </div>
+                        <div class="box box_right">
+                            <input type="text" name="queryNumber" id="queryNumber"/>
+                        </div>
+                    </div>
+                    <div class="queryBox clearfix" id="matchBox">
+                        <div class="box box_left">
+                            <span class="query_text">匹配方式</span>
+                        </div>
+                        <div class="box box_right">
+                            <select name="match" id="queryMatch">
+                                <option value="qx">前向匹配</option>
+                                <option value="mh">模糊匹配</option>
+                                <option value="jq">精确匹配</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="queryBtn">
+                        <span id="sendQuery">查询</span>
+                    </div>
                 </div>
             </section>
         
