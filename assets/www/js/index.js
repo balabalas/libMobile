@@ -11,7 +11,7 @@
       , sendQuery = document.getElementById('sendQuery')
       , store = window.localStorage;
     
-    document.addEventListener('deviceready', appInit)
+    
     sendQuery.addEventListener('click', function(){
         var key = queryNumber.value
           , match = queryMatch.value;
@@ -31,11 +31,11 @@
         page.style.width = w + 'px';
         page.style.height = (h - 20) + 'px';
           
-        console.log("width: " + w + ' ### height: ' + h);
     }
     
     setBtn.addEventListener('click', sBtnClick, true);
     
+    document.addEventListener('deviceready', appInit, false)
     function sBtnClick(){
         console.log('setting on click');
     }

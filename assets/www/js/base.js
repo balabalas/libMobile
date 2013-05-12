@@ -57,7 +57,13 @@
           
           return errString;
         }
-      
+      , getMineSize: function(e){
+          var box = e.getBoundingClientRect()
+            , w = box.width || (box.right - box.left)
+            , h = box.height || (box.bottom - box.top);
+            
+          return {width:w, height:h};
+      }
     };
     
     window.APP = APP;

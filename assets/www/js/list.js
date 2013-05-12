@@ -14,12 +14,18 @@
       , app = null
       , lists = document.getElementById('bookList')
       , listLength = document.getElementById('listLength')
+      , listWrapper = document.getElementById('wrapper')
+      , listScroller = document.getElementById('scroller')
+      , pageContent = document.getElementById('pageContent')
+      , pageHeader = document.getElementById('pageHeader')
       , key = store.getItem('key') || 'node'
       , rkey = store.getItem('cache_key')
       , match = store.getItem('match') || 'qx'
       , rmatch = store.getItem('cache_match')
       , scrollOptions = {
           onRefresh: scrollRefresh
+        , useTransition: false
+        , bounce: true
         , onScrollMove: scrollMove
         , onScrollEnd: scrollEnd
       }
@@ -31,8 +37,8 @@
     }
     
     var pageState = {
-        loading: function(){},
-        success: function(response){
+        loading: function(){}
+      , success: function(response){
             // when book query return success.
             // the init page.
             var result = null
@@ -81,6 +87,12 @@
                 serverError();
             }
         }
+      , getSize: function(e){
+            var box = e.getBoundingClientRect();
+            var w = box.width || (box.right - box.left);
+            var h = box.height || (box.bottom - box.top);
+            return {width:w, height:h};
+        }
     };
     
     /**
@@ -88,8 +100,8 @@
      * 
      * **/
     function scrollInit(){
-        //myScroll = new iScroll('scroller', scrollOptions);
-        myScroll = new iScroll('wrapper');
+        myScroll = new iScroll('wrapper', scrollOptions);
+        //myScroll = new iScroll('wrapper');
         //myScroll.refresh();
     }
     
@@ -137,7 +149,7 @@
      * when get list error;
      * **/
     function serverError(){
-        
+        console.log("something goes wrong!");
     }
     
     function scrollRefresh(){
@@ -153,13 +165,11 @@
     }
     
     function pullUpAction(){
-        setTimeout(function(){
             
             
             
-            myScroll.refresh();
+          myScroll.refresh();
             
-        }, 1000);
     }
     /**
      * document is ready;
@@ -169,6 +179,8 @@
         if(window.APP){
             app = window.APP;
         }
+        
+        loaded();
         
         // check network;
         // if(app && app.network){
@@ -180,19 +192,33 @@
         }
         else {
             var res = store.getItem('cache_result');
+            console.log('re query');
             pageState.success(res);
         }
         
     }
     
     function loaded(){
+        
+        var size = app ? app.getMineSize : pageState.getSize
+          , sh = screen.height
+          , wsY = window.screenY
+          , headerH = size(pageHeader).height
+          , contentH = sh - headerH - wsY;
+        
+        console.log('sh:' + sh + '--ssY:' + wsY);
+        
+        pageContent.style.height = contentH + 'px';
+        listWrapper.style.top = headerH + 'px';
+        listWrapper.style.height = contentH + 'px';
+        
         scrollInit();
     }
     
     document.addEventListener('touchmove',function(e){
         e.preventDefault();
     }, false);
-    document.addEventListener('DOMContentLoaded', loaded, false);
+    
     document.addEventListener('deviceready', appready, false);
     
 })();
