@@ -1,0 +1,40 @@
+
+body {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+#pageHeader {
+    min-height: 30px;
+    width: 100%;
+    height: auto;
+    background-color: #71B0D7;
+}
+
+#headContent {
+    padding: 16px 10px;
+}
+
+a, a:hover {
+    text-decoration: none;
+}
+
+#bookList {
+    list-style: none;
+}
+
+#bookList li {
+    width: 100%;
+    float: left;
+    height: 2em;
+    border-bottom: 1px solid #222222;
+}
+
+
+
+
+
+
