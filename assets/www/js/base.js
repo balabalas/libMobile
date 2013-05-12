@@ -1,23 +1,75 @@
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    onDeviceReady: function() {
-        //app.receivedEvent('app');
-        navigator.splashscreen.hide();
-    },
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+/***
+ * base.js
+ * **/
+(function(window){
+    
+    "use strict";
+    
+    var APP = {
+        toggle: function(id){
+            var parentElement = document.getElementById(id);
+            var listeningElement = parentElement.querySelector('.listening');
+            var receivedElement = parentElement.querySelector('.received');
+    
+            listeningElement.setAttribute('style', 'display:none;');
+            receivedElement.setAttribute('style', 'display:block;');
+        }
+      , network: function(){
+          var networkState = null
+            , state = false;
+          
+          if(navigator || navigator.connection){
+              networkState = navigator.connection.type;
+          }
+          
+          if(networkState && Connection){
+              switch(networkState){
+                  case Connection.NONE: state = false; break;
+                  case Connection.WIFI:
+                  case Connection.CELL_2G:
+                  case Connection.CELL_3G:
+                  case Connection.CELL_4G:
+                  case Connection.CELL:
+                  case Connection.ETHERNET:
+                  case Connection.UNKNOWN: state = true; break;
+                  default: state = true;
+              }
+          }
+          
+          return state;
+        }
+      , unknowError: function(err){
+          
+          var errString = '';
+          
+          if(typeof err === 'object'){
+              if(Array.isArray(err)){
+                  err = err.join(',');
+              }
+              errString = err.toString();
+          }
+          else if(typeof err === 'string'){
+              errString = err;
+          }
+          else {
+              errString = '' + err;
+          }
+          
+          return errString;
+        }
+      
+    };
+    
+    window.APP = APP;
+    
+})(this);
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
-    }
-};
+
+
+
+
+
+
+
+

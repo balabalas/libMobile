@@ -11,29 +11,46 @@
 <body>
     <div id="app">
         <header id="pageHeader">
-            <div id="headContent">
-                <a href="../index.html">
+            <div id="headContent" class="clearfix">
+                <a class="navBtn navBtn_left" href="../index.html">
                     <span class="back_btn">返回</span>
                 </a>
+                <span id="lengthBox" class="clearfix">
+                    共&nbsp;
+                    <span id="listLength">
+                        
+                    </span>&nbsp;
+                    条记录
+                </span>
+                <div id="loadingStatus">
+                    
+                </div>
             </div>
         </header>
         <section id="pageContent">
             <div id="wrapper">
                 <div id="scroller">
                     <ul class="clearfix" id="bookList">
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
+                        <li class="book_item">Hello, world.</li>
                     </ul>
                 </div>
             </div>
@@ -41,6 +58,7 @@
     </div>
     <script src="../js/cordova-2.7.0.js"></script>
     <script src="../js/iscroll.js"></script>
+    <script src="../js/base.js"></script>
     <script src="../js/list.js"></script>
 </body>
 </html>

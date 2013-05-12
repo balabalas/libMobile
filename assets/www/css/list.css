@@ -15,25 +15,62 @@ body {
 }
 
 #headContent {
+    position: relative;
     padding: 16px 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#lengthBox {
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 1.5em;
+    width: 8em;
+    margin-top: -0.5em;
+    margin-left: -4em;
 }
 
 a, a:hover {
     text-decoration: none;
 }
 
+#pageContent {
+    width: 100%;
+    position: relative;
+}
+
+#wrapper {
+    position:absolute;
+    z-index:1;
+    top:0px;
+    left:0;
+    width:100%;
+    background:#aaa;
+    overflow:auto;
+}
+
 #bookList {
     list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 2em;
 }
 
 #bookList li {
     width: 100%;
     float: left;
     height: 2em;
+    line-height: 2em;
+    background-color:#fafafa;
     border-bottom: 1px solid #222222;
 }
 
-
+#loadingStatus {
+    float: right;
+    margin-right: 10px;
+}
 
 
 
