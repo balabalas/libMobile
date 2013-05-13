@@ -65,15 +65,13 @@
                   , tempArr = []
                   , listContent = '';
                 
-                console.log('type is ' + typeof records);
-                
                 if(Array.isArray(records)){
                     tempArr = records;
                     if(len > 50) tempArr.length = 50;
                 }
                 
                 for(var i = 0; i < tempArr.length; i++){
-                    listContent += '<li class="book_item">' + tempArr[i].title + '</li>'
+                    listContent += '<li class="book_item"><a href="bookdetail.html">' + tempArr[i].title + '</a></li>'
                 }
                 
                 lists.innerHTML = listContent;
@@ -84,7 +82,7 @@
                 
             }
             else {
-                serverError();
+                serverError('result');
             }
         }
       , getSize: function(e){
@@ -110,7 +108,7 @@
      * **/
     function sendQuery(){
         var xhr = new XMLHttpRequest()
-          , url = 'http://star.dmdgeeker.com/search?key=' + key + '&match=' + match;
+          , url = 'http://star.dmdgeeker.com/search?key=' + encodeURIComponent(key) + '&match=' + match;
         
         xhr.onreadystatechange = function(){
             var response = null;
@@ -120,7 +118,8 @@
                     pageState.success(response);
                 }
                 else {
-                    serverError();
+                    var info = 'ajax:' + xhr.status;
+                    serverError(info);
                 }
             }
             else {
@@ -138,7 +137,7 @@
         xhr.ontimeout = function(){
             xhr.abort();
         };
-        
+        console.log(url);
         xhr.open('GET', url);
         xhr.send(null);
     }
@@ -148,8 +147,9 @@
     /***
      * when get list error;
      * **/
-    function serverError(){
-        console.log("something goes wrong!");
+    function serverError(info){
+        info = info || '';
+        console.log("something goes wrong! " + info);
     }
     
     function scrollRefresh(){
@@ -183,9 +183,9 @@
         loaded();
         
         // check network;
-        // if(app && app.network){
-            // console.log('network: ' + app.network());
-        // }
+        if(app && app.network){
+            console.log('network: ' + app.network());
+        }
         
         if(!reQuery){
             sendQuery();

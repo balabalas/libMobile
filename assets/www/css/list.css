@@ -34,6 +34,11 @@ body {
 
 a, a:hover {
     text-decoration: none;
+    color: #c14570;
+}
+
+a, a:active {
+    color: #5c5c5c;
 }
 
 #pageContent {
@@ -75,7 +80,9 @@ a, a:hover {
     float: left;
     height: 2em;
     line-height: 2em;
+    font-size: 1em;
     background-color:#fafafa;
+    padding-left: 0.5em;
     border-bottom: 1px solid #222222;
 }
 

@@ -16,8 +16,7 @@
         var key = queryNumber.value
           , match = queryMatch.value;
         
-        console.log('key:' + key + ' -- match:' + match);
-        if(key != '')store.setItem('key', key);
+        if(key && key != '')store.setItem('key', key);
         store.setItem('match', match);
     });
     
