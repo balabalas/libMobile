@@ -29,7 +29,8 @@
         , onScrollMove: scrollMove
         , onScrollEnd: scrollEnd
       }
-      , reQuery = false;
+      , reQuery = false
+      , booksList = [];
     
     // judge this query is or isn't a re-do query.
     if(key === rkey && match === rmatch){
@@ -67,14 +68,28 @@
                 
                 if(Array.isArray(records)){
                     tempArr = records;
+                    booksList = records;
                     if(len > 50) tempArr.length = 50;
                 }
                 
                 for(var i = 0; i < tempArr.length; i++){
-                    listContent += '<li class="book_item"><a href="bookdetail.html">' + tempArr[i].title + '</a></li>'
+                  
+                  var liItem = document.createElement('li')
+                    , aItem = document.createElement('a');
+                    
+                  
+                  liItem.className = 'book_item';
+                  aItem.innerText = '' + tempArr[i].title;
+                  aItem.setAttribute('title', tempArr[i].index);
+                  aItem.setAttribute('href', 'bookdetail.html');
+                  liItem.appendChild(aItem);
+                  
+               // listContent += '<li class="book_item"><a class="" href="bookdetail.html" title=' + tempArr[i].index + '>' + tempArr[i].title + '</a></li>'
+                 
+                 lists.appendChild(liItem);
                 }
                 
-                lists.innerHTML = listContent;
+                //lists.innerHTML = listContent;
                 
                 myScroll.refresh();
                 
