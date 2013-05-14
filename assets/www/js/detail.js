@@ -22,7 +22,7 @@
       , tBookNumber = document.getElementById('tBookNumber')
       , extraScroll = null
       , extraScrollOptions = {
-          snap: true
+          snap: 'li'
         , momentum: false
         , hScrollbar: false
         , vScrollbar: false

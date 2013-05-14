@@ -116,9 +116,9 @@ body {
     position:relative;
     z-index:1;
     overflow:hidden;
-    background-color: #aaa;
     margin: 0;
     padding: 0;
+    border: 1px solid #eee;
 }
 
 #scroller {
