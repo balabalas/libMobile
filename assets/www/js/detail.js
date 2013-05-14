@@ -28,7 +28,8 @@
         , vScrollbar: false
         , onScrollEnd: extraScrollEnd
         }
-      , size = null;
+      , size = null
+      , reQuery = false;
     
     // Get book id from location.search or localstorage.
     function getSearchId(str){
@@ -47,12 +48,22 @@
     
     function appReady(){
       
+      checkReQuery();
+      
       var sw = 0, sh = 0;
       
       extraScroll = new iScroll('wrapper', extraScrollOptions);
       
       if(APP && APP.getMineSize){
         size = APP.getMineSize;
+      }
+      else {
+        size = function(e){
+            var box = e.getBoundingClientRect();
+            var w = box.width || (box.right - box.left);
+            var h = box.height || (box.bottom - box.top);
+            return {width:w, height:h};
+        }
       }
       
       if(size){
@@ -76,10 +87,18 @@
           extraItems[2].style.height = sh + 'px';
           extraItems[3].style.width = sw + 'px';
           extraItems[3].style.height = sh + 'px';
-        } 
+        }
       }
       
-      getDetails();
+      if(reQuery){
+        var cache_bookj = store.getItem('cache_book')
+          , cache_book = JSON.parse(cache_bookj);
+        
+        drawScreen(true, cache_book);
+      }
+      else {
+        getDetails();
+      }
     }
     
     function drawScreen(flag, obj){
@@ -174,11 +193,10 @@
                 book.info.push(d.bookInfo.size);
                 book.info.push(d.bookInfo.publisher);
                 
-                
+                store.setItem('cache_bookId', bookId);
+                store.setItem('cache_book', JSON.stringify(book));
                 
                 drawScreen(true, book);
-                
-                // console.log(d.bookStat.number);
                 
               }
               else {
@@ -196,6 +214,18 @@
       
     }
     
+    function checkReQuery(){
+      var currentId = bookId
+        , oldId = store.getItem('cache_bookId');
+      
+      if(currentId === oldId){
+        reQuery = true;
+      }
+      else {
+        reQuery = false;
+      }
+      
+    }
     
     document.addEventListener('deviceready', appReady, false);
     
