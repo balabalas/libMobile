@@ -12,18 +12,23 @@
       , bookId = getSearchId(search) || store.getItem('bookId')
       , bookName = store.getItem('bookName')
       , bookdetails = null
+      , tScroller = document.getElementById('scroller')
+      , tWrapper = document.getElementById('wrapper')
+      , extraList = document.getElementById('extraList')
+      , extraItems = extraList.querySelectorAll('.extra_item')
       , tBookName = document.getElementById('tBookName')
       , tBookTitle = document.getElementById('tBookTitle')
       , tBookAuthor = document.getElementById('tBookAuthor')
       , tBookNumber = document.getElementById('tBookNumber')
-      , extraScroll 
+      , extraScroll = null
       , extraScrollOptions = {
           snap: true
         , momentum: false
         , hScrollbar: false
         , vScrollbar: false
         , onScrollEnd: extraScrollEnd
-      };
+        }
+      , size = null;
     
     // Get book id from location.search or localstorage.
     function getSearchId(str){
@@ -41,7 +46,37 @@
     }
     
     function appReady(){
-        getDetails();
+      
+      var sw = 0, sh = 0;
+      
+      extraScroll = new iScroll('wrapper', extraScrollOptions);
+      
+      if(APP && APP.getMineSize){
+        size = APP.getMineSize;
+      }
+      
+      if(size){
+        // console.log('scroll: ' + size(tScroller).width);
+        // console.log('wrapper: ' + size(tWrapper).width);
+        
+        sw = size(tScroller).width;
+        sh = size(tScroller).height;
+        
+        extraList.style.width = 4 * sw + 'px';
+        extraList.style.height = sh + 'px';
+        if(extraItems){
+          extraItems[0].style.width = sw + 'px';
+          extraItems[0].style.height = sh + 'px';
+          extraItems[1].style.width = sw + 'px';
+          extraItems[1].style.height = sh + 'px';
+          extraItems[2].style.width = sw + 'px';
+          extraItems[2].style.height = sh + 'px';
+          extraItems[3].style.width = sw + 'px';
+          extraItems[3].style.height = sh + 'px';
+        } 
+      }
+      
+      getDetails();
     }
     
     function drawScreen(flag, obj){
@@ -60,8 +95,8 @@
       tBookNumber.innerText = obj.number;
       
       
+      extraScroll.refresh();
       
-      extraScroll = new iScroll('wrapper', extraScrollOptions);
       
     }
     

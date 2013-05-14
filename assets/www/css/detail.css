@@ -72,7 +72,7 @@ body {
 }
 
 #scrollInfo {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     height: 10em;
 }
@@ -96,8 +96,7 @@ body {
 }
 
 #scroller ul {
-    float:left;
-    width:100%;
+    width: auto;
     height:100%;
     padding:0;
     margin:0;
