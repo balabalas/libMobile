@@ -59,11 +59,14 @@
         // console.log('scroll: ' + size(tScroller).width);
         // console.log('wrapper: ' + size(tWrapper).width);
         
-        sw = size(tScroller).width;
-        sh = size(tScroller).height;
+        sw = size(tWrapper).width;
+        sh = size(tWrapper).height;
         
         extraList.style.width = 4 * sw + 'px';
         extraList.style.height = sh + 'px';
+        
+        console.log('sw: ' + sw + '--sh: ' + sh);
+        
         if(extraItems){
           extraItems[0].style.width = sw + 'px';
           extraItems[0].style.height = sh + 'px';
@@ -93,6 +96,36 @@
       tBookTitle.innerText = obj.title;
       tBookAuthor.innerText = obj.author;
       tBookNumber.innerText = obj.number;
+      
+      if(obj.position && obj.position.length > 0){
+        for(var i = 0, len = obj.position.length; i < len; i++){
+          var span = document.createElement('span');
+          span.className = 'positon_item';
+          span.innerText = obj.position[i];
+          extraItems[0].appendChild(span);
+        }
+      }
+      else {
+        extraItems[0].innerHTML = '<span class="position_item">未查到相关信息</span>';
+      }
+      
+      if(obj.intro){
+        extraItems[1].innerHTML = '<span id="bookIntro">' + obj.intro + '</span>'
+      }
+      
+      for(var i = 0, len = obj.sort.length; i < len; i++){
+        var sspan = document.createElement('span');
+        sspan.className = 'sort_item';
+        sspan.innerText = obj.sort[i];
+        extraItems[2].appendChild(sspan);
+      }
+      
+      for(var i = 0, len = obj.info.length; i < len; i++){
+        var ispan = document.createElement('span');
+        ispan.className = 'sort_item';
+        ispan.innerText = obj.info[i];
+        extraItems[3].appendChild(ispan);
+      }
       
       
       extraScroll.refresh();
@@ -132,6 +165,16 @@
                 book.number = d.bookStat.number;
                 book.title = d.bookInfo.title;
                 book.author = d.bookInfo.author;
+                book.position = d.bookStat.list;
+                book.intro = d.bookInfo.intro;
+                book.sort = [];
+                book.sort.push(d.bookInfo.series);
+                book.sort.push(d.bookInfo.annotation);
+                book.info = [];
+                book.info.push(d.bookInfo.size);
+                book.info.push(d.bookInfo.publisher);
+                
+                
                 
                 drawScreen(true, book);
                 
