@@ -5,6 +5,8 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
 
 #pageHeader {
@@ -21,6 +23,103 @@ body {
     text-align: center;
     vertical-align: middle;
 }
+
+#pageContent {
+    width: 100%;
+    overflow: hidden;
+}
+
+#infoList {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#infoList li {
+    width: 100%;
+    display:inline-block;
+    background-color: #ddd;
+    overflow: hidden;
+    height: 4em;
+    line-height: 4em;
+    margin: 0;
+    padding: 0;
+}
+
+#infoList li .listInner {
+    display: inline-block;
+    width: 90%;
+    margin: 0 auto;
+    padding: 2px;
+}
+
+
+#tBookName {
+    font-size: 2.4em;
+    font-weight: 600;
+}
+
+.list_item {
+    font-size: 1.5em;
+}
+
+.list_item_left {
+    padding-left: 1.4em;
+}
+
+.list_item_right {
+    margin-left: 1em;
+}
+
+#scrollInfo {
+    width: 80%;
+    margin: 0 auto;
+    height: 10em;
+}
+
+#wrapper {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position:relative;
+    z-index:1;
+    overflow:hidden;
+    background-color: #aaa;
+    
+}
+
+#scroller {
+    width:auto;
+    height:100%;
+    float:left;
+    padding:0;
+}
+
+#scroller ul {
+    float:left;
+    width:100%;
+    height:100%;
+    padding:0;
+    margin:0;
+    text-align:left;
+}
+
+#scroller li {
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -o-box-sizing:border-box;
+    box-sizing:border-box;
+    display:block;
+    float:left;
+    width:100%;
+    height:100%;
+    text-align:center;
+    font-family:georgia;
+    font-size:18px;
+    line-height:140%;
+}
+
+
 
 
 

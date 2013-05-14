@@ -225,4 +225,20 @@ input {
     border-color:transparent #717DD7 transparent #717DD7;
 }
 
+.childCenter {
+    text-align: center;
+}
+
+.notList {
+    list-style: none;
+    display: block;
+}
+
+
+
+
+
+
+
+
 

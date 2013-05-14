@@ -206,7 +206,7 @@
         }
         else {
             var res = store.getItem('cache_result');
-            console.log('re query');
+            // console.log('re query');
             pageState.success(res);
         }
         
