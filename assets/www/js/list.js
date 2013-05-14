@@ -18,6 +18,7 @@
       , listScroller = document.getElementById('scroller')
       , pageContent = document.getElementById('pageContent')
       , pageHeader = document.getElementById('pageHeader')
+      , navLinks = document.querySelectorAll('.nav_detail')
       , key = store.getItem('key') || 'node'
       , rkey = store.getItem('cache_key')
       , match = store.getItem('match') || 'qx'
@@ -76,17 +77,15 @@
                   
                   var liItem = document.createElement('li')
                     , aItem = document.createElement('a');
-                    
                   
                   liItem.className = 'book_item';
                   aItem.innerText = '' + tempArr[i].title;
                   aItem.setAttribute('title', tempArr[i].index);
-                  aItem.setAttribute('href', 'bookdetail.html');
+                  aItem.setAttribute('href', 'bookdetail.html?id=' + tempArr[i].index);
+                  aItem.className = 'nav_detail';
+                  aItem.addEventListener('click', navClicked, false);
                   liItem.appendChild(aItem);
-                  
-               // listContent += '<li class="book_item"><a class="" href="bookdetail.html" title=' + tempArr[i].index + '>' + tempArr[i].title + '</a></li>'
-                 
-                 lists.appendChild(liItem);
+                  lists.appendChild(liItem);
                 }
                 
                 //lists.innerHTML = listContent;
@@ -221,13 +220,20 @@
           , headerH = size(pageHeader).height
           , contentH = sh - headerH - wsY;
         
-        console.log('sh:' + sh + '--ssY:' + wsY);
-        
         pageContent.style.height = contentH + 'px';
         listWrapper.style.top = headerH + 'px';
         listWrapper.style.height = contentH + 'px';
         
         scrollInit();
+    }
+    
+    function navClicked(){
+        var title = this.getAttribute('title') || 'title'
+          , name = this.innerText;
+        
+        store.setItem('bookId', title);
+        store.setItem('bookName', name);
+        
     }
     
     document.addEventListener('touchmove',function(e){
