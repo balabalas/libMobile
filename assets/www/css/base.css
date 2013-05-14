@@ -234,8 +234,14 @@ input {
     display: block;
 }
 
+.listening {
+    display:none;
+}
 
-
+.received {
+    display:block;
+    width: 100%;
+}
 
 
 

@@ -54,6 +54,10 @@
       
       extraScroll = new iScroll('wrapper', extraScrollOptions);
       
+      if(bookName){
+        book.name = bookName;
+      }
+      
       if(APP && APP.getMineSize){
         size = APP.getMineSize;
       }
@@ -146,10 +150,7 @@
         extraItems[3].appendChild(ispan);
       }
       
-      
       extraScroll.refresh();
-      
-      
     }
     
     // draw screen when error.
@@ -158,9 +159,6 @@
     }
     
     // console.log('bookId: ' + bookId);
-    if(bookName){
-        book.name = bookName;
-    }
     
     // Get details from webserver.
     function getDetails(){

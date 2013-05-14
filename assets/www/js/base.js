@@ -64,6 +64,14 @@
             
           return {width:w, height:h};
       }
+      , displayContent: function(id){
+        var parentElement = document.getElementById(id)
+          , listeningElement = parentElement.querySelector('.listening')
+          , receivedElement = parentElement.querySelector('.received');
+        
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+      }
     };
     
     window.APP = APP;
