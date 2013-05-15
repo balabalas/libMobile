@@ -71,6 +71,7 @@
         
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;position:static;');
+        receivedElement.style.visibility = 'visible';
         receivedElement.style.height = parentElement.style.height;
       }
     };
