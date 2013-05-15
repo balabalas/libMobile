@@ -109,21 +109,38 @@
         extraItems[0].innerHTML = '<span class="position_item">未查到相关信息</span>';
       }
       
-      if(obj.intro){
-        extraItems[1].innerHTML = '<span id="bookIntro">' + obj.intro + '</span>'
+      if(obj.intro && obj.intro.length > 0){
+        extraItems[1].innerHTML = '<span id="bookIntro">' + obj.intro + '</span>';
+      }
+      else {
+        extraItems[1].innerHTML = '<span id="bookIntro" style="font-size: 1.2em;">此书暂无简介</span>';
       }
       
       for(var i = 0, len = obj.sort.length; i < len; i++){
         var sspan = document.createElement('span');
         sspan.className = 'sort_item';
-        sspan.innerText = obj.sort[i];
+        
+        if(obj.sort[i].length > 0){
+          sspan.innerText = obj.sort[i];
+        }
+        else {
+          sspan.innerText = '无';
+        }
+        
         extraItems[2].appendChild(sspan);
       }
       
       for(var i = 0, len = obj.info.length; i < len; i++){
         var ispan = document.createElement('span');
         ispan.className = 'sort_item';
-        ispan.innerText = obj.info[i];
+        
+        if(obj.info[i].length > 0){
+          ispan.innerText = obj.info[i];
+        }
+        else {
+          ispan.innerText = '无';
+        }
+        
         extraItems[3].appendChild(ispan);
       }
       
@@ -152,6 +169,8 @@
           extraItems[3].style.height = sh + 'px';
         }
       }
+      
+      tWrapper.style.visibility = 'visible';
       
       extraScroll.refresh();
     }
