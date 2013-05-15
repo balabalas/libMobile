@@ -50,8 +50,6 @@
       
       checkReQuery();
       
-      var sw = 0, sh = 0;
-      
       extraScroll = new iScroll('wrapper', extraScrollOptions);
       
       if(bookName){
@@ -67,30 +65,6 @@
             var w = box.width || (box.right - box.left);
             var h = box.height || (box.bottom - box.top);
             return {width:w, height:h};
-        }
-      }
-      
-      if(size){
-        // console.log('scroll: ' + size(tScroller).width);
-        // console.log('wrapper: ' + size(tWrapper).width);
-        
-        sw = size(tWrapper).width;
-        sh = size(tWrapper).height;
-        
-        extraList.style.width = 4 * sw + 'px';
-        extraList.style.height = sh + 'px';
-        
-        console.log('sw: ' + sw + '--sh: ' + sh);
-        
-        if(extraItems){
-          extraItems[0].style.width = sw + 'px';
-          extraItems[0].style.height = sh + 'px';
-          extraItems[1].style.width = sw + 'px';
-          extraItems[1].style.height = sh + 'px';
-          extraItems[2].style.width = sw + 'px';
-          extraItems[2].style.height = sh + 'px';
-          extraItems[3].style.width = sw + 'px';
-          extraItems[3].style.height = sh + 'px';
         }
       }
       
@@ -111,7 +85,10 @@
         return;
       }
       
-      var bnLen = obj.name.length;
+      var bnLen = obj.name.length
+        , sw = 0
+        , sh = 0;
+      
       if(bnLen > 15){
         tBookName.style.fontSize = '1.5em';
       }
@@ -151,6 +128,30 @@
       }
       
       APP.displayContent('pageContent');
+      
+      if(size){
+        // console.log('scroll: ' + size(tScroller).width);
+        // console.log('wrapper: ' + size(tWrapper).width);
+        
+        sw = size(tWrapper).width;
+        sh = size(tWrapper).height;
+        
+        extraList.style.width = 4 * sw + 'px';
+        extraList.style.height = sh + 'px';
+        
+        console.log('sw: ' + sw + '--sh: ' + sh);
+        
+        if(extraItems){
+          extraItems[0].style.width = sw + 'px';
+          extraItems[0].style.height = sh + 'px';
+          extraItems[1].style.width = sw + 'px';
+          extraItems[1].style.height = sh + 'px';
+          extraItems[2].style.width = sw + 'px';
+          extraItems[2].style.height = sh + 'px';
+          extraItems[3].style.width = sw + 'px';
+          extraItems[3].style.height = sh + 'px';
+        }
+      }
       
       extraScroll.refresh();
     }
