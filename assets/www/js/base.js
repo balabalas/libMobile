@@ -70,7 +70,8 @@
           , receivedElement = parentElement.querySelector('.received');
         
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        receivedElement.setAttribute('style', 'display:block;position:static;');
+        receivedElement.style.height = parentElement.style.height;
       }
     };
     

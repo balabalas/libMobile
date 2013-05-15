@@ -89,11 +89,9 @@
                 }
                 
                 //lists.innerHTML = listContent;
-                
-                myScroll.refresh();
-                
                 listLength.innerText = len;
-                
+                APP.displayContent('pageContent');
+                myScroll.refresh();
             }
             else {
                 serverError('result');
@@ -113,8 +111,6 @@
      * **/
     function scrollInit(){
         myScroll = new iScroll('wrapper', scrollOptions);
-        //myScroll = new iScroll('wrapper');
-        //myScroll.refresh();
     }
     
     /**

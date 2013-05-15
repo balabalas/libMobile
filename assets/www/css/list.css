@@ -45,7 +45,8 @@ a, a:active {
     width: 100%;
     display: block;
     background-color: #f7f7f7;
-    overflow:auto;
+    overflow:hidden;
+    position: relative;
 }
 
 #wrapper {

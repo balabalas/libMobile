@@ -150,6 +150,8 @@
         extraItems[3].appendChild(ispan);
       }
       
+      APP.displayContent('pageContent');
+      
       extraScroll.refresh();
     }
     
