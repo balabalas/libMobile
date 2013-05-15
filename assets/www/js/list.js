@@ -91,7 +91,11 @@
                 //lists.innerHTML = listContent;
                 listLength.innerText = len;
                 APP.displayContent('pageContent');
-                myScroll.refresh();
+                
+                setTimeout(function(){
+                  myScroll.refresh();
+                }, 0);
+                
             }
             else {
                 serverError('result');
@@ -154,7 +158,7 @@
             }
         };
         
-        xhr.timeout = 100000;
+        xhr.timeout = 70000;
         xhr.ontimeout = function(){
             xhr.abort();
         };
