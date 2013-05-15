@@ -6,21 +6,6 @@ body {
     overflow: hidden;
 }
 
-#pageHeader {
-    min-height: 30px;
-    width: 100%;
-    height: auto;
-    background-color: #71B0D7;
-    z-index: 2;
-}
-
-#headContent {
-    position: relative;
-    padding: 16px 10px;
-    text-align: center;
-    vertical-align: middle;
-}
-
 #lengthBox {
     display: inline-block;
     position: absolute;

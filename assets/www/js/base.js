@@ -74,6 +74,10 @@
         receivedElement.style.visibility = 'visible';
         receivedElement.style.height = parentElement.style.height;
       }
+      , displayError: function(errInfo){
+        var listeningElement = document.querySelector('.listening');
+        listeningElement.innerHTML = '<span>' + errInfo + '</span>';
+      }
     };
     
     window.APP = APP;

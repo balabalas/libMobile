@@ -117,6 +117,17 @@
      * when app is ready
      * **/
     function sendQuery(){
+      
+        if(app && app.network){
+            var netStat = app.network()
+              , info = '';
+            if(!netStat){
+              info = '网络错误，请检查网络连接。'
+              callError(info);
+              return;
+            }
+        }
+      
         var xhr = new XMLHttpRequest()
           , url = 'http://star.dmdgeeker.com/search?key=' + encodeURIComponent(key) + '&match=' + match;
         
@@ -128,8 +139,8 @@
                     pageState.success(response);
                 }
                 else {
-                    var info = 'ajax:' + xhr.status;
-                    serverError(info);
+                    var serverError = '服务器错误:' + xhr.status;
+                    callError(serverError);
                 }
             }
             else {
@@ -157,9 +168,9 @@
     /***
      * when get list error;
      * **/
-    function serverError(info){
-        info = info || '';
-        console.log("something goes wrong! " + info);
+    function callError(info){
+        info = info.toString();
+        APP.displayError(info);
     }
     
     function scrollRefresh(){
@@ -191,11 +202,6 @@
         }
         
         loaded();
-        
-        // check network;
-        if(app && app.network){
-            console.log('network: ' + app.network());
-        }
         
         if(!reQuery){
             sendQuery();

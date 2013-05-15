@@ -25,6 +25,17 @@ body {
     vertical-align: middle;
 }
 
+#likeWrapper {
+    float: right;
+    margin-right: 2em;
+    background-color: #aaa;
+}
+
+#likeBtn {
+    font-size: 2.4em;
+    color: pink;
+}
+
 #pageContent {
     width: 100%;
     overflow: hidden;
