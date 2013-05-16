@@ -28,12 +28,16 @@ body {
 #likeWrapper {
     float: right;
     margin-right: 2em;
-    background-color: #aaa;
+    position: relative;
 }
 
 #likeBtn {
-    font-size: 2.4em;
-    color: pink;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: -0.2em 0 0 0;
+    font-size: 4em;
+    color: #991e57;
 }
 
 #pageContent {
@@ -129,7 +133,6 @@ body {
     overflow:hidden;
     margin: 0 auto;
     padding: 0;
-    border: 1px solid #eee;
 }
 
 #scroller {
@@ -192,32 +195,6 @@ body {
     z-index: 99;
 }
 
-/*#wrapper:before {
-    position: absolute;
-    left: 0em;
-    top: 50%;
-    margin-top: -0.5em;
-    font-family: "fontello";
-    content:'\e800';
-    font-style: normal;
-    font-size: 3em;
-    font-weight: normal;
-    z-index: 99;
-}*/
-
-/*#wrapper:after {
-    position: absolute;
-    right: 0em;
-    top: 50%;
-    margin-top: -0.5em;
-    font-family: "fontello";
-    content:'\e801';
-    font-size: 3em;
-    font-style: normal;
-    font-weight: normal;
-    z-index: 99;
-}*/
-
 #scroller ul {
     width: auto;
     height:100%;
@@ -264,12 +241,5 @@ body {
     width: 100%;
     height: auto;
 }
-
-
-
-
-
-
-
 
 

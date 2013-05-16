@@ -234,6 +234,11 @@ input {
     height: auto;
     background-color: #71B0D7;
     z-index: 2;
+    background: rgb(30,87,153); /* Old browsers */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(30,87,153,1)), color-stop(0%,rgba(41,137,216,1)), color-stop(49%,rgba(32,124,202,1)), color-stop(100%,rgba(41,137,216,1)), color-stop(100%,rgba(125,185,232,1))); /* Chrome,Safari4+ */
+     background: -webkit-linear-gradient(top,  rgba(30,87,153,1) 0%,rgba(41,137,216,1) 0%,rgba(32,124,202,1) 49%,rgba(41,137,216,1) 100%,rgba(125,185,232,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -ms-linear-gradient(top,  rgba(30,87,153,1) 0%,rgba(41,137,216,1) 0%,rgba(32,124,202,1) 49%,rgba(41,137,216,1) 100%,rgba(125,185,232,1) 100%); /* IE10+ */
+     background: linear-gradient(to bottom,  rgba(30,87,153,1) 0%,rgba(41,137,216,1) 0%,rgba(32,124,202,1) 49%,rgba(41,137,216,1) 100%,rgba(125,185,232,1) 100%); /* W3C */
 }
 
 #headContent {
@@ -254,13 +259,15 @@ input {
 .back_btn {
     position: relative;
     display:inline-block;
-    border: 1px solid #717DD7;
+    border: 1px solid #99601e;
     border-radius: 4px;
     color: #ddd;
-    background-color: #717DD7;
+    background-color: #99601e;
     font-size: 2em;
     padding: 4px 6px 4px 0px;
     margin-left: 1.2em;
+    -webkit-box-shadow: 0 0 3px 3px rgba(148,125,40,0.46);
+            box-shadow: 0 0 3px 3px rgba(148,125,40,0.46);
 }
 
 .back_btn:before {
@@ -271,7 +278,7 @@ input {
     top: 0;
     border-width: 0.75em 0.8em 0.75em 0em;
     border-style:solid;
-    border-color:transparent #717DD7 transparent #717DD7;
+    border-color:transparent #99601e transparent #99601e;
 }
 
 .childCenter {
