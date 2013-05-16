@@ -81,10 +81,21 @@
       }
       , onReady: function(){
         document.addEventListener('deviceready', function(){
-          
+          // APP.initDatabase();
         }, false);
       }
-      
+      , initDatabase: function(){
+        var db = window.openDatabase("bistudb", "1.0", "Bistu library DB", 200000);
+        db.transaction(function(tx){
+          tx.executeSql('CREATE TABLE IF NOT EXISTS favor (id unique, data)');
+        }, function(err){
+          console.log('database error: ' + err.code);
+        }, function(){
+          // call when transaction success.
+          console.log('exec sql success');
+        });
+        APP.database = db;
+      }
     };
     
     APP.onReady();

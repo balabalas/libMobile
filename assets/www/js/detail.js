@@ -14,8 +14,6 @@
       , bookdetails = null
       , tScroller = document.getElementById('scroller')
       , tWrapper = document.getElementById('wrapper')
-      // , tWrapperBefore = document.querySelector('#wrapper:before')
-      // , tWrapperAfter = document.querySelector('#wrapper:after')
       , extraList = document.getElementById('extraList')
       , extraNav = document.getElementById('extraNavList')
       , extraNavLists = extraNav.querySelectorAll('li')
@@ -24,6 +22,8 @@
       , tBookTitle = document.getElementById('tBookTitle')
       , tBookAuthor = document.getElementById('tBookAuthor')
       , tBookNumber = document.getElementById('tBookNumber')
+      , likeWrapper = document.getElementById('likeWrapper')
+      , likeBtn = document.getElementById('likeBtn')
       , extraScroll = null
       , extraScrollOptions = {
           snap: 'li'
@@ -33,7 +33,8 @@
         , onScrollEnd: extraScrollEnd
         }
       , size = null
-      , reQuery = false;
+      , reQuery = false
+      , db = null;
     
     // Get book id from location.search or localstorage.
     function getSearchId(str){
@@ -50,18 +51,88 @@
       }
     }
     
+    function toggleLike(id, data){
+      
+      db.transaction(function(tx){
+        tx.executeSql('CREATE TABLE IF NOT EXISTS favor (id unique, data)', [], function(tx, results){
+        }, function(err){
+          console.log('create table like failed');
+        });
+        
+        tx.executeSql('SELECT * FROM favor where id=?', [id], function(tx, results){
+          // select success;
+          var len = results.rows.length;
+          
+          if(len < 1){
+            tx.executeSql('INSERT INTO favor (id, data) VALUES (?,?)', [id,data], function(tx, res){
+              console.log('insert table success.');
+              likeBtn.style.color = '#991e57';
+            }, function(tx, err){
+              console.log(err.code + '-->msg: ' + err.message);
+            });
+          }
+          else {
+            tx.executeSql('DELETE FROM favor where id=?', [id]);
+            likeBtn.style.color = '#fff';
+          }
+          console.log("Returned rows = " + len);
+        }, function(tx, err){
+          // select error
+          console.log("Error select SQL: " + err.code + ' && ' + err.message);
+        });
+        
+      }, function(err){
+        // transaction error
+        console.log('detail database error: ' + err.code + ' && ' + err.message);
+      }, function(){
+        // transaction success
+        console.log('transaction success!!!');
+      });
+    }
+    
+    // check if it has been favored.
+    function verifyFavor(id){
+      db.transaction(function(tx){
+        tx.executeSql('SELECT id FROM favor where id = ?', [id], function(tx, results){
+          var len = results.rows.length;
+          if(len < 1){
+            likeBtn.style.color = '#fff';
+          }
+          else {
+            likeBtn.style.color = '#991e57';
+          }
+        }, function(tx, err){
+          console.log('verify select error.');
+        });
+      }, function(err){
+        console.log('verify error.');
+      }, function(){
+        console.log('verify success.');
+      });
+    }
+    
     function appReady(){
       
       checkReQuery();
+      
+      likeWrapper.addEventListener('click', function(){
+        var data = JSON.stringify(book)
+          , id = bookId + '';
+        toggleLike(id, data);
+      }, false);
       
       extraScroll = new iScroll('wrapper', extraScrollOptions);
       
       if(bookName){
         book.name = bookName;
       }
+      else {
+        book.name = '';
+      }
       
       if(APP && APP.getMineSize){
         size = APP.getMineSize;
+        APP.initDatabase();
       }
       else {
         size = function(e){
@@ -72,6 +143,16 @@
         }
       }
       
+      if(!APP.database){
+        console.log('database can not access!');
+        db = window.openDatabase("bistudb", "1.0", "Bistu library DB", 200000);
+      }
+      else {
+        db = APP.database;
+      }
+      
+      verifyFavor(bookId);
+      
       if(reQuery){
         var cache_bookj = store.getItem('cache_book')
           , cache_book = JSON.parse(cache_bookj);
@@ -81,6 +162,7 @@
       else {
         getDetails();
       }
+      
     }
     
     function drawScreen(flag, obj){
@@ -160,7 +242,7 @@
         extraList.style.width = 4 * sw + 'px';
         extraList.style.height = sh + 'px';
         
-        console.log('sw: ' + sw + '--sh: ' + sh);
+        // console.log('sw: ' + sw + '--sh: ' + sh);
         
         if(extraItems){
           extraItems[0].style.width = sw + 'px';
