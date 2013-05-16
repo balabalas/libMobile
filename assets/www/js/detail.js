@@ -14,6 +14,8 @@
       , bookdetails = null
       , tScroller = document.getElementById('scroller')
       , tWrapper = document.getElementById('wrapper')
+      // , tWrapperBefore = document.querySelector('#wrapper:before')
+      // , tWrapperAfter = document.querySelector('#wrapper:after')
       , extraList = document.getElementById('extraList')
       , extraNav = document.getElementById('extraNavList')
       , extraNavLists = extraNav.querySelectorAll('li')
@@ -236,6 +238,16 @@
       
       var index = extraScroll.currPageX;
       
+      if(index === 0){
+        tWrapper.className = 'wrapper_head';
+      }
+      else if(index === 3) {
+        tWrapper.className = 'wrapper_tail';
+      }
+      else {
+        tWrapper.className = 'wrapper_middle';
+      }
+      
       for(var i = 0, len = extraNavLists.length; i < len; i++){
         if(i === index){
           extraNavLists[i].className = 'extra_nav_active';
@@ -256,7 +268,6 @@
       else {
         reQuery = false;
       }
-      
     }
     
     document.addEventListener('deviceready', appReady, false);
