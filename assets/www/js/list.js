@@ -77,7 +77,7 @@
                       hasReadPosition = 50;
                     }
                     else {
-                      if(len < 15) pullUpEl.style.display = 'none';
+                      pullUpEl.style.display = 'none';
                       tempArr = records;
                     }
                 }
@@ -107,7 +107,7 @@
                 
             }
             else {
-                serverError('result');
+                callError('result');
             }
         }
       , getSize: function(e){
