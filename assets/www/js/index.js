@@ -9,14 +9,17 @@
       , queryNumber = document.getElementById('queryNumber')
       , queryMatch = document.getElementById('queryMatch')
       , sendQuery = document.getElementById('sendQuery')
-      , store = window.localStorage;
+      , store = window.localStorage
+      , oldKey = store.getItem('key');
     
     
     sendQuery.addEventListener('click', function(){
         var key = queryNumber.value
           , match = queryMatch.value;
         
-        if(key && key != '')store.setItem('key', key);
+        if(key && key != ''){
+          store.setItem('key', key);
+        }
         store.setItem('match', match);
     });
     
@@ -29,6 +32,10 @@
           
         page.style.width = w + 'px';
         page.style.height = (h - 20) + 'px';
+        
+        if(oldKey){
+          queryNumber.setAttribute('placeholder', oldKey);
+        }
           
     }
     

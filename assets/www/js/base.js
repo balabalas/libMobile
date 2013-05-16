@@ -70,16 +70,24 @@
           , receivedElement = parentElement.querySelector('.received');
         
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;position:static;');
+        receivedElement.setAttribute('style', 'display:block;');
         receivedElement.style.visibility = 'visible';
+        parentElement.style.visibility = 'visible';
         receivedElement.style.height = parentElement.style.height;
       }
       , displayError: function(errInfo){
         var listeningElement = document.querySelector('.listening');
         listeningElement.innerHTML = '<span>' + errInfo + '</span>';
       }
+      , onReady: function(){
+        document.addEventListener('deviceready', function(){
+          
+        }, false);
+      }
+      
     };
     
+    APP.onReady();
     window.APP = APP;
     
 })(this);
