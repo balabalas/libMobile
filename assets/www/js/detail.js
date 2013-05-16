@@ -15,6 +15,8 @@
       , tScroller = document.getElementById('scroller')
       , tWrapper = document.getElementById('wrapper')
       , extraList = document.getElementById('extraList')
+      , extraNav = document.getElementById('extraNavList')
+      , extraNavLists = extraNav.querySelectorAll('li')
       , extraItems = extraList.querySelectorAll('.extra_item')
       , tBookName = document.getElementById('tBookName')
       , tBookTitle = document.getElementById('tBookTitle')
@@ -232,6 +234,16 @@
     
     function extraScrollEnd(){
       
+      var index = extraScroll.currPageX;
+      
+      for(var i = 0, len = extraNavLists.length; i < len; i++){
+        if(i === index){
+          extraNavLists[i].className = 'extra_nav_active';
+        }
+        else {
+          extraNavLists[i].className = '';
+        }
+      }
     }
     
     function checkReQuery(){

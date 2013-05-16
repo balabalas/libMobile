@@ -206,8 +206,6 @@
     
     function pullUpAction(){
       
-      console.log('start to pullup!---' + hasReadPosition);
-      
       var tArr = []
         , end = 0;
       
@@ -223,7 +221,6 @@
           end = booksList.length;
         }
         
-        console.log('start: ' + hasReadPosition + '--end:' + end);
         tArr = booksList.slice(hasReadPosition, end);
         hasReadPosition += tArr.length;
       }
@@ -262,10 +259,8 @@
         }
         else {
             var res = store.getItem('cache_result');
-            // console.log('re query');
             pageState.success(res);
         }
-        
     }
     
     function loaded(){

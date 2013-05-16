@@ -95,7 +95,7 @@ body {
     background-color: #FFD324;
 }
 
-.extra_nav_item {
+#extraNavList li {
     display:inline-block;
     width: 6em;
     height: 2.4em;
