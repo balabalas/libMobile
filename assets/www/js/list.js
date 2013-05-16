@@ -7,7 +7,9 @@
     
     "use strict";
     
-    var loadProgress = document.getElementById('loadingStatus');
+    var loadProgress = document.getElementById('loadingStatus')
+      , pullUpEl
+      , pullUpOffset;
     
     var myScroll
       , store = window.localStorage
@@ -31,7 +33,8 @@
         , onScrollEnd: scrollEnd
       }
       , reQuery = false
-      , booksList = [];
+      , booksList = []
+      , hasReadPosition = 0;
     
     // judge this query is or isn't a re-do query.
     if(key === rkey && match === rmatch){
@@ -68,9 +71,15 @@
                   , listContent = '';
                 
                 if(Array.isArray(records)){
-                    tempArr = records;
                     booksList = records;
-                    if(len > 50) tempArr.length = 50;
+                    if(len > 50){
+                      tempArr = records.slice(0, 50);
+                      hasReadPosition = 50;
+                    }
+                    else {
+                      if(len < 15) pullUpEl.style.display = 'none';
+                      tempArr = records;
+                    }
                 }
                 
                 for(var i = 0; i < tempArr.length; i++){
@@ -108,14 +117,6 @@
             return {width:w, height:h};
         }
     };
-    
-    /**
-     * init scroll view;
-     * 
-     * **/
-    function scrollInit(){
-        myScroll = new iScroll('wrapper', scrollOptions);
-    }
     
     /**
      * when app is ready
@@ -167,8 +168,6 @@
         xhr.send(null);
     }
     
-    
-    
     /***
      * when get list error;
      * **/
@@ -178,23 +177,74 @@
     }
     
     function scrollRefresh(){
-        
+        if (pullUpEl.className.match('loading')) {
+          pullUpEl.className = '';
+          pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+        }
     }
     
     function scrollMove(){
         
+        if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+          pullUpEl.className = 'flip';
+          pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Release to refresh...';
+          this.maxScrollY = this.maxScrollY;
+        } else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+          pullUpEl.className = '';
+          pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+          this.maxScrollY = pullUpOffset;
+        }
     }
     
     function scrollEnd(){
-        
+        if(pullUpEl.className.match('flip')) {
+          pullUpEl.className = 'loading';
+          pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';        
+          pullUpAction();
+        }
     }
     
     function pullUpAction(){
-            
-            
-            
-          myScroll.refresh();
-            
+      
+      console.log('start to pullup!---' + hasReadPosition);
+      
+      var tArr = []
+        , end = 0;
+      
+      if(hasReadPosition === 0 || hasReadPosition < 50){
+        return;
+      }
+      else {
+        
+        if((booksList.length - hasReadPosition) > 50){
+          end = hasReadPosition + 50;
+        }
+        else {
+          end = booksList.length;
+        }
+        
+        console.log('start: ' + hasReadPosition + '--end:' + end);
+        tArr = booksList.slice(hasReadPosition, end);
+        hasReadPosition += tArr.length;
+      }
+      
+      for(var i = 0, len = tArr.length; i < len; i++){
+        var liItem = document.createElement('li')
+          , aItem = document.createElement('a');
+        
+        liItem.className = 'book_item';
+        aItem.innerText = '' + tArr[i].title;
+        aItem.setAttribute('title', tArr[i].index);
+        aItem.setAttribute('href', 'bookdetail.html?id=' + tArr[i].index);
+        aItem.className = 'nav_detail';
+        aItem.addEventListener('click', navClicked, false);
+        liItem.appendChild(aItem);
+        lists.appendChild(liItem);
+      }
+      
+      setTimeout(function(){
+        myScroll.refresh();
+      }, 0);
     }
     /**
      * document is ready;
@@ -226,11 +276,15 @@
           , headerH = size(pageHeader).height
           , contentH = sh - headerH - wsY;
         
+        pullUpEl = document.getElementById('pullUp');
+        pullUpOffset = pullUpEl.offsetHeight;
+        
         pageContent.style.height = contentH + 'px';
         listWrapper.style.top = headerH + 'px';
         listWrapper.style.height = contentH + 'px';
         
-        scrollInit();
+        // init scroll view;
+        myScroll = new iScroll('wrapper', scrollOptions);
     }
     
     function navClicked(){
