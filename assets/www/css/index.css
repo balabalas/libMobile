@@ -132,6 +132,32 @@ body {
 #queryBtn {
     width: 100%;
     text-align: center;
+    position: relative;
+    min-height: 2em;
+    height: 2.4em;
+}
+
+#favorBox {
+    display: inline-block;
+    position: absolute;
+    right: 54%;
+    
+}
+
+#favorQuery {
+    display: inline-block;
+    font-size: 1.4em;
+    padding: 0.2em 0.4em;
+    border: 1px solid #ddf;
+    border-radius: 6px;
+    background-color: #1E9599;
+    color: #ddd;
+    text-align: center;
+}
+
+#sendBox {
+    position: absolute;
+    left: 50%;
 }
 
 #sendQuery {
