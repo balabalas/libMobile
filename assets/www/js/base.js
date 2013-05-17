@@ -78,10 +78,11 @@
       , displayError: function(errInfo){
         var listeningElement = document.querySelector('.listening');
         listeningElement.innerHTML = '<span>' + errInfo + '</span>';
+        
       }
       , onReady: function(){
         document.addEventListener('deviceready', function(){
-          // APP.initDatabase();
+          APP.initDatabase();
         }, false);
       }
       , initDatabase: function(){
@@ -95,6 +96,46 @@
           // console.log('exec sql success');
         });
         APP.database = db;
+      }
+      , handleParams: function(params){
+        /***
+         * @param params (string)
+         *    ex: ?type=qx&name=hello&age=12
+         * **/
+        
+        if(!params){
+          return null;
+        }
+        else if(typeof params !== 'string'){
+          return null;
+        }
+        else if(params.length < 2){
+          return null;
+        }
+        
+        var str = params.slice(1)
+          , rawArr = []
+          , resArr = []
+          , res = null;
+        
+        rawArr = str.split('&');
+        
+        if(Array.prototype.forEach){
+          rawArr.forEach(function(value, index){
+            var pre, tail
+              , sArr = value.split('=');
+            res = {};
+            pre = sArr[0];
+            tail = sArr[1] || null;
+            
+            res[pre] = tail;
+          });
+        }
+        else {
+          console.log('browser does not support Array.forEach!');
+        }
+        
+        return res;
       }
     };
     

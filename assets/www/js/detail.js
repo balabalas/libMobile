@@ -8,8 +8,11 @@
     
     var store = window.localStorage
       , search = location.search
+      , context = {
+          type: 'query'
+        , id: store.getItem('cache_bookId')
+      }
       , book = {}
-      , bookId = getSearchId(search) || store.getItem('bookId')
       , bookName = store.getItem('bookName')
       , bookdetails = null
       , tScroller = document.getElementById('scroller')
@@ -36,19 +39,11 @@
       , reQuery = false
       , db = null;
     
+    console.log(search);
+    
     // Get book id from location.search or localstorage.
     function getSearchId(str){
-      if(str && str.length && str.length > 3){
-        if(str.indexOf('?') !== 0){
-          return false;
-        }
-        else {
-          return str.slice(4);
-        }
-      }
-      else {
-        return false;
-      }
+      
     }
     
     function toggleLike(id, data){
@@ -113,26 +108,36 @@
     
     function appReady(){
       
-      checkReQuery();
+      var oldId = store.getItem('cache_bookId')
+        , query = APP.handleParams(search);
+      
+      if(query.type){
+        context.type = query.type;
+      }
+      if(query.id){
+        context.id = query.id;
+      }
+      
+      book.index = context.id;
+      book.title = bookName || '';
+      
+      if(context.id === oldId){
+        reQuery = true;
+      }
+      else {
+        reQuery = false;
+      }
       
       likeWrapper.addEventListener('click', function(){
         var data = JSON.stringify(book)
-          , id = bookId + '';
+          , id = context.id + '';
         toggleLike(id, data);
       }, false);
       
       extraScroll = new iScroll('wrapper', extraScrollOptions);
       
-      if(bookName){
-        book.name = bookName;
-      }
-      else {
-        book.name = '';
-      }
-      
       if(APP && APP.getMineSize){
         size = APP.getMineSize;
-        APP.initDatabase();
       }
       else {
         size = function(e){
@@ -144,14 +149,13 @@
       }
       
       if(!APP.database){
-        console.log('database can not access!');
         db = window.openDatabase("bistudb", "1.0", "Bistu library DB", 200000);
       }
       else {
         db = APP.database;
       }
       
-      verifyFavor(bookId);
+      verifyFavor(context.id);
       
       if(reQuery){
         var cache_bookj = store.getItem('cache_book')
@@ -162,7 +166,6 @@
       else {
         getDetails();
       }
-      
     }
     
     function drawScreen(flag, obj){
@@ -171,15 +174,15 @@
         return;
       }
       
-      var bnLen = obj.name.length
+      var bnLen = obj.title.length
         , sw = 0
         , sh = 0;
       
       if(bnLen > 15){
         tBookName.style.fontSize = '1.5em';
       }
-      tBookName.innerText = obj.name;
-      tBookTitle.innerText = obj.title;
+      tBookName.innerText = obj.title;
+      tBookTitle.innerText = obj.subtitle;
       tBookAuthor.innerText = obj.author;
       tBookNumber.innerText = obj.number;
       
@@ -271,7 +274,7 @@
     // Get details from webserver.
     function getDetails(){
         var xhr = new XMLHttpRequest()
-          , url = 'http://star.dmdgeeker.com/book?id=' + bookId;
+          , url = 'http://star.dmdgeeker.com/book?id=' + context.id;
         
         xhr.onreadystatechange = function(){
             if(xhr.readyState ===4){
@@ -288,7 +291,7 @@
                 var d = bookdetails;
                 
                 book.number = d.bookStat.number;
-                book.title = d.bookInfo.title;
+                book.subtitle = d.bookInfo.title;
                 book.author = d.bookInfo.author;
                 book.position = d.bookStat.list;
                 book.intro = d.bookInfo.intro;
@@ -299,7 +302,7 @@
                 book.info.push(d.bookInfo.size);
                 book.info.push(d.bookInfo.publisher);
                 
-                store.setItem('cache_bookId', bookId);
+                store.setItem('cache_bookId', context.id);
                 store.setItem('cache_book', JSON.stringify(book));
                 
                 drawScreen(true, book);
@@ -341,15 +344,7 @@
     }
     
     function checkReQuery(){
-      var currentId = bookId
-        , oldId = store.getItem('cache_bookId');
       
-      if(currentId === oldId){
-        reQuery = true;
-      }
-      else {
-        reQuery = false;
-      }
     }
     
     document.addEventListener('deviceready', appReady, false);

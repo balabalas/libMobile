@@ -9,17 +9,20 @@
       , queryNumber = document.getElementById('queryNumber')
       , queryMatch = document.getElementById('queryMatch')
       , sendQuery = document.getElementById('sendQuery')
+      , sendBox = document.getElementById('sendBox')
       , store = window.localStorage
       , oldKey = store.getItem('key');
     
     
     sendQuery.addEventListener('click', function(){
-        var key = queryNumber.value
+        var key = queryNumber.value || null
           , match = queryMatch.value;
         
         if(key && key != ''){
           store.setItem('key', key);
         }
+        // ./html/booklist.html?type=qx
+        sendBox.setAttribute('href', './html/booklist.html?type=qx&key=' + key);
         store.setItem('match', match);
     });
     

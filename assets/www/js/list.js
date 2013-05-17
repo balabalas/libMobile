@@ -13,7 +13,11 @@
     
     var myScroll
       , store = window.localStorage
-      , app = null
+      , context = {
+        // this context
+        type:'qx'  // default is query the keyword.
+      }
+      , search = location.search
       , lists = document.getElementById('bookList')
       , listLength = document.getElementById('listLength')
       , listWrapper = document.getElementById('wrapper')
@@ -21,9 +25,9 @@
       , pageContent = document.getElementById('pageContent')
       , pageHeader = document.getElementById('pageHeader')
       , navLinks = document.querySelectorAll('.nav_detail')
-      , key = store.getItem('key') || 'node'
+      , key = store.getItem('key')
       , rkey = store.getItem('cache_key')
-      , match = store.getItem('match') || 'qx'
+      , match = store.getItem('match')
       , rmatch = store.getItem('cache_match')
       , scrollOptions = {
           onRefresh: scrollRefresh
@@ -41,27 +45,50 @@
         reQuery = true;
     }
     
+    console.log(search);
+    
     var pageState = {
-        loading: function(){}
-      , success: function(response){
+        loading: function(){
+          console.log('page loading!');
+        }
+      , success: function(response, favor){
             // when book query return success.
             // the init page.
             var result = null
-              , flag = true;
+              , flag = true
+              , type = '';
             
-            try {
+            if(favor){
+              // if it comes from favor
+              var _res = {}
+                , _r = response
+                , _len = response.length
+                ;
+              type = 'favor';
+              result = {};
+              result.res = [];
+              result.length = _len;
+              
+              for(var i = 0; i < _len; i++){
+                result.res.push(JSON.parse(_r.item(i).data));
+              }
+              
+            }
+            else {
+              type = 'query';
+              try {
                 result = JSON.parse(response);
-                
                 //if it's not query the same params.
                 if(!reQuery){
                     store.setItem('cache_key', key);
                     store.setItem('cache_match', match);
-                    store.setItem('cache_result', response);
+                    store.setItem('cache_result', JSON.stringify(result));
                 }
-            }
-            catch(err){
-                flag = false;
-                console.log("JSON parse: " + err);
+              }
+              catch(err){
+                  flag = false;
+                  console.log("JSON parse: " + err);
+              }
             }
             
             if(flag && result){
@@ -90,7 +117,7 @@
                   liItem.className = 'book_item';
                   aItem.innerText = '' + tempArr[i].title;
                   aItem.setAttribute('title', tempArr[i].index);
-                  aItem.setAttribute('href', 'bookdetail.html?id=' + tempArr[i].index);
+                  aItem.setAttribute('href', 'bookdetail.html?id=' + tempArr[i].index + '&type=' + type);
                   aItem.className = 'nav_detail';
                   aItem.addEventListener('click', navClicked, false);
                   liItem.appendChild(aItem);
@@ -123,8 +150,8 @@
      * **/
     function sendQuery(){
       
-        if(app && app.network){
-            var netStat = app.network()
+        if(APP && APP.network){
+            var netStat = APP.network()
               , info = '';
             if(!netStat){
               info = '网络错误，请检查网络连接。'
@@ -173,6 +200,7 @@
      * **/
     function callError(info){
         info = info.toString();
+        console.log(info);
         APP.displayError(info);
     }
     
@@ -247,29 +275,17 @@
      * document is ready;
      * **/
     function appready(){
-        
-        if(window.APP){
-            app = window.APP;
-        }
-        
         loaded();
-        
-        if(!reQuery){
-            sendQuery();
-        }
-        else {
-            var res = store.getItem('cache_result');
-            pageState.success(res);
-        }
     }
     
     function loaded(){
         
-        var size = app ? app.getMineSize : pageState.getSize
+        var size = APP ? APP.getMineSize : pageState.getSize
           , sh = screen.height
           , wsY = window.screenY
           , headerH = size(pageHeader).height
-          , contentH = sh - headerH - wsY;
+          , contentH = sh - headerH - wsY
+          , queries = null;
         
         pullUpEl = document.getElementById('pullUp');
         pullUpOffset = pullUpEl.offsetHeight;
@@ -278,8 +294,71 @@
         listWrapper.style.top = headerH + 'px';
         listWrapper.style.height = contentH + 'px';
         
+        queries = APP.handleParams(search);
+        
+        if(queries){
+          if(queries.type){
+            context.type = queries.type;
+          }
+          if(queries.key){
+            context.key = queries.key;
+          }
+          if(queries.match){
+            context.match = queries.match;
+          }
+        }
+        
+        if(context.type === 'favor'){
+          // do check favor
+          favorQuery();
+        }
+        else{
+          if(!reQuery){
+            sendQuery();
+          }
+          else {
+            var res = store.getItem('cache_result');
+            pageState.success(res);
+          }
+        }
+        
         // init scroll view;
         myScroll = new iScroll('wrapper', scrollOptions);
+    }
+    
+    function favorQuery(){
+      var db = null;
+      if(APP.database){
+        db = APP.database;
+      }
+      else {
+        db = window.openDatabase("bistudb", "1.0", "Bistu library DB", 200000);
+      }
+      
+      db.transaction(function(tx){
+        tx.executeSql('SELECT * FROM favor', [], function(tx, results){
+          var r = results.rows
+            , len = r.length;
+          if(len < 1){
+            // no favors
+            var nofavor = '您还没有收藏任何书目。'
+            callError(nofavor);
+          }
+          else {
+            // has favors
+            var hasfavor = '已有' + len + '本书。';
+            console.log('has: ' + hasfavor);
+            pageState.success(r, true);
+          }
+          APP.displayContent('pageContent');
+        }, function(tx, err){
+          console.log('verify select error.');
+        });
+      }, function(err){
+        console.log('verify error.');
+      }, function(){
+        console.log('verify success.');
+      });
     }
     
     function navClicked(){
@@ -288,7 +367,6 @@
         
         store.setItem('bookId', title);
         store.setItem('bookName', name);
-        
     }
     
     document.addEventListener('touchmove',function(e){
