@@ -7,7 +7,6 @@ body {
     overflow: hidden;
     width: 100%;
     height: 100%;
-    background-color: #ddd;
 }
 
 #pageHeader {
@@ -54,7 +53,7 @@ body {
 #infoList li {
     width: 100%;
     display:inline-block;
-    background-color: #ddd;
+    /*background-color: #ddd;*/
     overflow: hidden;
     height: 3em;
     line-height: 3em;
@@ -97,6 +96,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #1E9960;
+    color: #eee;
 }
 
 #extraNavList li {
