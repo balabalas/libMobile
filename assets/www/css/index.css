@@ -8,6 +8,8 @@ body {
     overflow: hidden;
     background-color: #ddd;
     background: url(../img/debut.png) repeat;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
 }
 
 #app {
@@ -18,19 +20,19 @@ body {
 
 #indexPageHeader {
     width: 80%;
-    font-size: 42px;
+    font-size: 3em;
     font-weight: 700;
     height: 1.5em;
     line-height: 1.5em;
     margin: 0 auto;
     text-align: center;
-    padding-top: 40px;
+    padding-top: 2em;
 }
 
 #pageContent {
     min-height: 20px;
     width: 100%;
-    font-size: 14px;
+    font-size: 1em;
 }
 
 #queries {
@@ -41,7 +43,7 @@ body {
     box-shadow: 1px 1px 5px #ddd;
     margin-top: 36px;
     padding: 0.5em 0.5em;
-    font-size: 28px;
+    font-size: 2em;
     background: rgb(229,229,229); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(229,229,229,1) 0%, rgba(255,255,255,1) 50%, rgba(229,229,229,1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(229,229,229,1)), color-stop(50%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
@@ -135,10 +137,10 @@ body {
 #sendQuery {
     display: inline-block;
     font-size: 1.4em;
-    padding: 5px 12px;
+    padding: 0.2em 0.4em;
     border: 1px solid #ddf;
     border-radius: 6px;
-    background-color: #717DD7;
+    background-color: #1E5799;
     color: #ddd;
     text-align: center;
 }
@@ -154,7 +156,7 @@ body {
 
 #settings {
     float: right;
-    padding: 0 30px 30px 0;
+    padding: 0 2em 2em 0;
     width: 50px;
     height: auto;
     text-align: center;
@@ -166,13 +168,13 @@ body {
 }
 
 #settings-icon {
-    height: 50px;
-    width: 50px;
-    font-size: 300%;
+    height: 1em;
+    width: 1em;
+    font-size: 3em;
 }
 
 #settings-text {
-    font-size: 21px;
+    font-size: 1.2em;
 }
 
 

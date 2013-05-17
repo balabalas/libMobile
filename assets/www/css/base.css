@@ -3,6 +3,23 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
+@media screen and (max-width: 720px){
+    body {
+        font-size: 21px;
+    }
+}
+
+@media screen and (max-width: 480px){
+    body {
+        font-size: 14px;
+    }
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -12,7 +29,6 @@ body {
     background: url(../img/debut.png) repeat;
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
     height:100%;
     margin:0px;
     padding:0px;
@@ -233,7 +249,7 @@ input {
 
 #headContent {
     position: relative;
-    padding: 16px 10px;
+    padding: 1.1em 0.8em;
     text-align: center;
     vertical-align: middle;
 }
@@ -254,7 +270,7 @@ input {
     color: #ddd;
     background-color: #1E9960;
     font-size: 2em;
-    padding: 4px 6px 4px 0px;
+    padding: 0.3em 0.5em 0.3em 0em;
     margin-left: 1.2em;
     -webkit-box-shadow: 0 0 3px 3px rgba(17, 89, 56,0.46);
             box-shadow: 0 0 3px 3px rgba(17, 89, 56,0.46);
@@ -264,9 +280,9 @@ input {
     position: absolute;
     content: " ";
     display: block;
-    left: -0.8em;
-    top: 0em;
-    border-width: 0.75em 0.8em 0.75em 0;
+    left: -0.99em;
+    top: -0.07em;
+    border-width: 0.94em 1em 0.94em 0;
     border-style:solid;
     border-color:transparent #1E9960 transparent #1E9960;
     z-index: 0;

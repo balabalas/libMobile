@@ -179,7 +179,7 @@
     function scrollRefresh(){
         if (pullUpEl.className.match('loading')) {
           pullUpEl.className = '';
-          pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+          pullUpEl.querySelector('.pullUpLabel').innerHTML = '向上拉加载更多...';
         }
     }
     
@@ -187,11 +187,11 @@
         
         if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
           pullUpEl.className = 'flip';
-          pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Release to refresh...';
+          pullUpEl.querySelector('.pullUpLabel').innerHTML = '松开即加载更多...';
           this.maxScrollY = this.maxScrollY;
         } else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
           pullUpEl.className = '';
-          pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+          pullUpEl.querySelector('.pullUpLabel').innerHTML = '向上拉加载更多...';
           this.maxScrollY = pullUpOffset;
         }
     }
@@ -199,7 +199,7 @@
     function scrollEnd(){
         if(pullUpEl.className.match('flip')) {
           pullUpEl.className = 'loading';
-          pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';        
+          pullUpEl.querySelector('.pullUpLabel').innerHTML = '正在加载中...';        
           pullUpAction();
         }
     }

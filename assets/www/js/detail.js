@@ -107,7 +107,7 @@
       }, function(err){
         console.log('verify error.');
       }, function(){
-        console.log('verify success.');
+        // console.log('verify success.');
       });
     }
     

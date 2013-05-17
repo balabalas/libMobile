@@ -92,7 +92,7 @@
           console.log('database error: ' + err.code);
         }, function(){
           // call when transaction success.
-          console.log('exec sql success');
+          // console.log('exec sql success');
         });
         APP.database = db;
       }

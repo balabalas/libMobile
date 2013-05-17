@@ -1,7 +1,6 @@
 
 
 body {
-    font-size: 14px;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -9,7 +8,7 @@ body {
     height: 100%;
 }
 
-#pageHeader {
+/*#pageHeader {
     min-height: 30px;
     width: 100%;
     height: auto;
@@ -22,7 +21,7 @@ body {
     padding: 16px 10px;
     text-align: center;
     vertical-align: middle;
-}
+}*/
 
 #likeWrapper {
     float: right;
