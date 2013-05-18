@@ -63,9 +63,10 @@ a, a:active {
 }
 
 .row_content p {
-    text-indent: 2em;
+    text-indent: 1em;
     margin: 0;
     padding: 0;
+    line-height: 1.2;
 }
 
 #contentHeader {

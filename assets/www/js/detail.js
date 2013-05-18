@@ -54,7 +54,7 @@
           
           if(len < 1){
             tx.executeSql('INSERT INTO favor (id, data) VALUES (?,?)', [id,data], function(tx, res){
-              console.log('insert table success.');
+              // console.log('insert table success.');
               likeBtn.style.color = '#991e57';
             }, function(tx, err){
               console.log(err.code + '-->msg: ' + err.message);
@@ -64,7 +64,7 @@
             tx.executeSql('DELETE FROM favor where id=?', [id]);
             likeBtn.style.color = '#fff';
           }
-          console.log("Returned rows = " + len);
+          // console.log("Returned rows = " + len);
         }, function(tx, err){
           // select error
           console.log("Error select SQL: " + err.code + ' && ' + err.message);
@@ -75,7 +75,7 @@
         console.log('detail database error: ' + err.code + ' && ' + err.message);
       }, function(){
         // transaction success
-        console.log('transaction success!!!');
+        // console.log('transaction success!!!');
       });
     }
     
@@ -150,11 +150,11 @@
         }
       }
       
-      if(!APP.database){
-        db = window.openDatabase("bistudb", "1.0", "Bistu library DB", 200000);
+      if(APP && APP.database){
+        db = APP.database;
       }
       else {
-        db = APP.database;
+        db = window.openDatabase("bistudb", "1.0", "Bistu library DB", 200000);
       }
       
       verifyFavor(context.id);
