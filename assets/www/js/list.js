@@ -5,8 +5,6 @@
 
 (function(){
     
-    "use strict";
-    
     var loadProgress = document.getElementById('loadingStatus')
       , pullUpEl
       , pullUpOffset;
@@ -16,6 +14,8 @@
       , context = {
         // this context
         type:'qx'  // default is query the keyword.
+        , key: store.getItem('key')
+        , match: store.getItem('match')
       }
       , search = location.search
       , lists = document.getElementById('bookList')
@@ -45,8 +45,6 @@
         reQuery = true;
     }
     
-    console.log(search);
-    
     var pageState = {
         loading: function(){
           console.log('page loading!');
@@ -72,7 +70,6 @@
               for(var i = 0; i < _len; i++){
                 result.res.push(JSON.parse(_r.item(i).data));
               }
-              
             }
             else {
               type = 'query';
@@ -134,7 +131,7 @@
                 
             }
             else {
-                callError('result');
+                callError('对不起，应用出错了...');
             }
         }
       , getSize: function(e){
@@ -161,7 +158,7 @@
         }
       
         var xhr = new XMLHttpRequest()
-          , url = 'http://star.dmdgeeker.com/search?key=' + encodeURIComponent(key) + '&match=' + match;
+          , url = 'http://star.dmdgeeker.com/search?key=' + context.key + '&match=' + context.match;
         
         xhr.onreadystatechange = function(){
             var response = null;
@@ -171,12 +168,12 @@
                     pageState.success(response);
                 }
                 else {
-                    var serverError = '服务器错误:' + xhr.status;
+                    var serverError = '服务器出错了:' + xhr.status;
                     callError(serverError);
                 }
             }
             else {
-                pageState.loading();
+                // pageState.loading();
             }
         };
         
@@ -188,9 +185,11 @@
         
         xhr.timeout = 70000;
         xhr.ontimeout = function(){
+            var timeoutError = '加载超时，请检查网络连接。';
+            callError(timeoutError);
             xhr.abort();
         };
-        console.log(url);
+        
         xhr.open('GET', url);
         xhr.send(null);
     }
@@ -199,8 +198,6 @@
      * when get list error;
      * **/
     function callError(info){
-        info = info.toString();
-        console.log(info);
         APP.displayError(info);
     }
     
@@ -260,7 +257,7 @@
         liItem.className = 'book_item';
         aItem.innerText = '' + tArr[i].title;
         aItem.setAttribute('title', tArr[i].index);
-        aItem.setAttribute('href', 'bookdetail.html?id=' + tArr[i].index);
+        aItem.setAttribute('href', 'bookdetail.html?id=' + tempArr[i].index + '&type=' + type);
         aItem.className = 'nav_detail';
         aItem.addEventListener('click', navClicked, false);
         liItem.appendChild(aItem);
@@ -271,14 +268,8 @@
         myScroll.refresh();
       }, 0);
     }
-    /**
-     * document is ready;
-     * **/
-    function appready(){
-        loaded();
-    }
     
-    function loaded(){
+    function appReady(){
         
         var size = APP ? APP.getMineSize : pageState.getSize
           , sh = screen.height
@@ -341,23 +332,24 @@
             , len = r.length;
           if(len < 1){
             // no favors
-            var nofavor = '您还没有收藏任何书目。'
+            var nofavor = '您还没有收藏任何书目。';
+            pullUpEl.style.display = 'none';
             callError(nofavor);
           }
           else {
             // has favors
-            var hasfavor = '已有' + len + '本书。';
-            console.log('has: ' + hasfavor);
+            // var hasfavor = '已有' + len + '本书。';
+            // console.log('has: ' + hasfavor);
             pageState.success(r, true);
+            APP.displayContent('pageContent');
           }
-          APP.displayContent('pageContent');
         }, function(tx, err){
           console.log('verify select error.');
         });
       }, function(err){
         console.log('verify error.');
       }, function(){
-        console.log('verify success.');
+        // console.log('verify success.');
       });
     }
     
@@ -373,7 +365,7 @@
         e.preventDefault();
     }, false);
     
-    document.addEventListener('deviceready', appready, false);
+    document.addEventListener('deviceready', appReady, false);
     
 })();
 

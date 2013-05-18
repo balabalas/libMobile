@@ -7,15 +7,15 @@
     'use strict';
     
     var store = window.localStorage
-      , search = location.search
       , context = {
           type: 'query'
-        , id: store.getItem('cache_bookId')
+        , id: store.getItem('bookId')
       }
       , book = {}
       , bookName = store.getItem('bookName')
       , bookdetails = null
       , tScroller = document.getElementById('scroller')
+      , navBtn = document.querySelector('.navBtn_left')
       , tWrapper = document.getElementById('wrapper')
       , extraList = document.getElementById('extraList')
       , extraNav = document.getElementById('extraNavList')
@@ -37,14 +37,8 @@
         }
       , size = null
       , reQuery = false
-      , db = null;
-    
-    console.log(search);
-    
-    // Get book id from location.search or localstorage.
-    function getSearchId(str){
-      
-    }
+      , db = null
+      , search = location.search;
     
     function toggleLike(id, data){
       
@@ -120,6 +114,14 @@
       
       book.index = context.id;
       book.title = bookName || '';
+      
+      if(context.type === 'favor'){
+        // booklist.html
+        navBtn.setAttribute('href', 'booklist.html?type=favor');
+      }
+      else {
+        navBtn.setAttribute('href', 'booklist.html?type=qx');
+      }
       
       if(context.id === oldId){
         reQuery = true;
@@ -265,14 +267,23 @@
     }
     
     // draw screen when error.
-    function drawError(){
-      
+    function callError(info){
+      APP.displayError(info);
     }
-    
-    // console.log('bookId: ' + bookId);
     
     // Get details from webserver.
     function getDetails(){
+      
+        if(APP && APP.network){
+            var netStat = APP.network()
+              , info = '';
+            if(!netStat){
+              info = '网络错误，请检查网络连接。'
+              callError(info);
+              return;
+            }
+        }
+      
         var xhr = new XMLHttpRequest()
           , url = 'http://star.dmdgeeker.com/book?id=' + context.id;
         
@@ -309,14 +320,21 @@
                 
               }
               else {
-                console.log('status is ' + xhr.status);
+                  var serverError = '服务器出错了:' + xhr.status;
+                  callError(serverError);
               }
             }
         }
         
+        xhr.timeout = 70000;
+        xhr.ontimeout = function(){
+            var timeoutError = '加载超时，请检查网络连接。';
+            callError(timeoutError);
+            xhr.abort();
+        };
+        
         xhr.open('GET', url);
         xhr.send(null);
-        
     }
     
     function extraScrollEnd(){
@@ -343,12 +361,7 @@
       }
     }
     
-    function checkReQuery(){
-      
-    }
-    
     document.addEventListener('deviceready', appReady, false);
-    
 })();
 
 

@@ -76,13 +76,13 @@
         receivedElement.style.height = parentElement.style.height;
       }
       , displayError: function(errInfo){
-        var listeningElement = document.querySelector('.listening');
-        listeningElement.innerHTML = '<span>' + errInfo + '</span>';
-        
+        var le = document.querySelector('.listening');
+        le.innerHTML = '<div id="errorInfo"><span>' + errInfo + '</span><div>';
       }
       , onReady: function(){
-        document.addEventListener('deviceready', function(){
-          APP.initDatabase();
+        APP.initDatabase();
+        document.addEventListener('deviceready', function(e){
+          e.preventDefault();
         }, false);
       }
       , initDatabase: function(){
@@ -102,7 +102,6 @@
          * @param params (string)
          *    ex: ?type=qx&name=hello&age=12
          * **/
-        
         if(!params){
           return null;
         }
@@ -116,23 +115,18 @@
         var str = params.slice(1)
           , rawArr = []
           , resArr = []
-          , res = null;
+          , res = {}
+          , len = 0;
         
         rawArr = str.split('&');
+        len = rawArr.length;
         
-        if(Array.prototype.forEach){
-          rawArr.forEach(function(value, index){
-            var pre, tail
-              , sArr = value.split('=');
-            res = {};
-            pre = sArr[0];
-            tail = sArr[1] || null;
-            
-            res[pre] = tail;
-          });
-        }
-        else {
-          console.log('browser does not support Array.forEach!');
+        for(var i = 0; i < len; i++){
+          var sArr = rawArr[i].split('=')
+            , pre = sArr[0]
+            , tail = sArr[1];
+          
+          res[pre] = tail;
         }
         
         return res;
