@@ -1,11 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-    <link rel="stylesheet" href="../css/base.css" type="text/css"/>
-    
+    <link rel="stylesheet"  href="../css/base.css" type="text/css"/>
+    <link rel="stylesheet"  href="../css/config.css" type="text/css"/>
     
     <title>Config</title>
 </head>
@@ -16,13 +16,52 @@
                 <a class="navBtn navBtn_left" href="../index.html">
                     <span class="back_btn">返回</span>
                 </a>
+                <div id="settingTitle">
+                    <span>设置</span>
+                </div>
             </div>
         </header>
         
         <section id="pageContent">
-            
+            <section class="box_row" id="contentHeader">
+                <span id="clearFavor">清除所有收藏</span>
+            </section>
+            <section class="box_row">
+                <header class="row_header"><span>关于</span></header>
+                <section class="row_content">
+                    <p>北信图书查询系统提供了北京信息科技大学各校区图书馆图书检索，同时，你还可以保存你感兴趣的图书信息，方便在图馆查找。感谢北京信息科技大学网管中心提供硬件支持。</p>
+                </section>
+            </section>
+            <section id="contact" class="box_row">
+                <header class="row_header"><span>Contact Me</span></header>
+                <section class="row_content">
+                    <ul class="contact_me notList">
+                        <li class="contact_li">
+                            <i class="icon-weibo"> </i>
+                            <span>DMDGeeker</span>
+                        </li>
+                        <li class="contact_li">
+                            <i class="icon-gmail"> </i>
+                            <span>ista.allen@gmail.com</span>
+                        </li>
+                        <li class="contact_li">
+                            <i class="icon-renren"> </i>
+                            <span>北信科</span>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section class="box_row">
+                <header class="row_header"> </header>
+                <section class="row_content">
+                    
+                </section>
+            </section>
         </section>
         
     </div>
+    <script src="../js/cordova-2.7.0.js"></script>
+    <script src="../js/base.js"></script>
+    <script src="../js/config.js"></script>
 </body>
 </html>

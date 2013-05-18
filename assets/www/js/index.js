@@ -37,9 +37,7 @@
         
         page.style.width = w + 'px';
         page.style.height = h + 'px';
-        setBtn.innerHTML = '<a href="html/config.html"><i id="settings-icon" class="icon-cog"> </i><span id="settings-text">设置</span></a>';
-        
-        if(oldKey){
+        setBtn.innerHTML = '<a href="./html/config.html"><i id="settings-icon" class="icon-cog"> </i><span id="settings-text">设置</span></a>';          if(oldKey){
           queryNumber.setAttribute('placeholder', oldKey);
         }
     }

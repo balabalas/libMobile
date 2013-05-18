@@ -1,0 +1,128 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+a, a:hover {
+    text-decoration: none;
+    color: #5c5c5c;
+}
+
+a, a:active {
+    color: #5c5c5c;
+}
+
+
+
+#settingTitle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 2em;
+    width: 2em;
+    margin-top: -0.6em;
+    margin-left: -0.5em;
+}
+
+#pageContent {
+    margin-top: 1em;
+    width: 100%;
+    height: 100%;
+    font-size: 2em;
+}
+
+.box_row {
+    width: 100%;
+    height: auto;
+    border-top: 1px solid #ddd;
+}
+
+.box_row:first-child {
+    border:none;
+}
+
+.row_header {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.row_header span {
+    display: inline-block;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #006dcc;
+    margin: 0.2em 0px 0px 0.2em;
+}
+
+.row_content {
+    width: 92%;
+    margin: 0 auto;
+}
+
+.row_content p {
+    text-indent: 2em;
+    margin: 0;
+    padding: 0;
+}
+
+#contentHeader {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+#clearFavor {
+    display: inline-block;
+    height: 2em;
+    line-height: 2em;
+    padding: 0 0.5em;
+    color: #fff;
+    background-color: #da4f49;
+    *background-color: #bd362f;
+    background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+    background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+    background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+    background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+    background-repeat: repeat-x;
+    border-color: #bd362f #bd362f #802420;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-radius: 0.2em;
+}
+
+#contact {
+    margin-bottom: 1em;
+}
+
+.contact_me {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.contact_li span {
+    padding-left: 0.5em;
+}
+
+.icon-weibo {
+    color: #EB182C;
+}
+
+.icon-gmail {
+    color: #ED1614;
+}
+
+.icon-renren {
+    color: #105BA3;
+}
+
+
+
+
+
+
+
+
