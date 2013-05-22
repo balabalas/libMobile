@@ -49,3 +49,4 @@ _$*
 #* mine
 test/
 .settings/
+node_modules/
