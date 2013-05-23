@@ -285,7 +285,7 @@
         }
       
         var xhr = new XMLHttpRequest()
-          , url = 'http://star.dmdgeeker.com/book?id=' + context.id;
+          , url = 'http://bistulib.dmdgeeker.com/book?id=' + context.id;
         
         xhr.onreadystatechange = function(){
             if(xhr.readyState ===4){

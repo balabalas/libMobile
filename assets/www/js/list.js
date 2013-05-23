@@ -158,7 +158,7 @@
         }
       
         var xhr = new XMLHttpRequest()
-          , url = 'http://star.dmdgeeker.com/search?key=' + context.key + '&match=' + context.match;
+          , url = 'http://bistulib.dmdgeeker.com/search?key=' + context.key + '&match=' + context.match;
         
         xhr.onreadystatechange = function(){
             var response = null;
