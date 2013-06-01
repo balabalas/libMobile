@@ -38,7 +38,8 @@
       }
       , reQuery = false
       , booksList = []
-      , hasReadPosition = 0;
+      , hasReadPosition = 0
+      , type;
     
     // judge this query is or isn't a re-do query.
     if(key === rkey && match === rmatch){
@@ -53,8 +54,7 @@
             // when book query return success.
             // the init page.
             var result = null
-              , flag = true
-              , type = '';
+              , flag = true;
             
             if(favor){
               // if it comes from favor
@@ -250,6 +250,10 @@
         hasReadPosition += tArr.length;
       }
       
+      if(type === undefined){
+        type = 'favor';
+      }
+      
       for(var i = 0, len = tArr.length; i < len; i++){
         var liItem = document.createElement('li')
           , aItem = document.createElement('a');
@@ -257,7 +261,7 @@
         liItem.className = 'book_item';
         aItem.innerText = '' + tArr[i].title;
         aItem.setAttribute('title', tArr[i].index);
-        aItem.setAttribute('href', 'bookdetail.html?id=' + tempArr[i].index + '&type=' + type);
+        aItem.setAttribute('href', 'bookdetail.html?id=' + tArr[i].index + '&type=' + type);
         aItem.className = 'nav_detail';
         aItem.addEventListener('click', navClicked, false);
         liItem.appendChild(aItem);
