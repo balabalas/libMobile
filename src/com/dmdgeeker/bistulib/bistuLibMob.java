@@ -29,8 +29,8 @@ public class bistuLibMob extends DroidGap
     {
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
-        super.setIntegerProperty("splashscreen", R.drawable.screen);
-        super.loadUrl(Config.getStartUrl(), 10000);
+//        super.setIntegerProperty("splashscreen", R.drawable.screen);
+        super.loadUrl(Config.getStartUrl());
         //super.loadUrl("file:///android_asset/www/index.html")
     }
 }
